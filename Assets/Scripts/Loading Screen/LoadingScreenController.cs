@@ -26,7 +26,7 @@ public class LoadingScreenController : MonoBehaviour
 
             if(progress == 1)
             {
-                yield return new WaitForSeconds(.5f);
+                yield return new WaitForSeconds(1.5f);
 
                 animator.Play("LoadingScreen");
 

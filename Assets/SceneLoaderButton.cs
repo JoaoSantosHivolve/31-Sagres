@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class TestLoaderButton : MonoBehaviour
+public class SceneLoaderButton : MonoBehaviour
 {
     public string sceneName;
 

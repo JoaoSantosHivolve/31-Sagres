@@ -6,6 +6,11 @@
         Pratical
     }
 
+    public enum VideoDirection
+    {
+        Forward,
+        Backwards
+    }
 
     public static class Helper
     {

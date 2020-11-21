@@ -264,7 +264,7 @@ MonoBehaviour:
   originalWidth: 100
   originalHeight: 100
   sideToAdjust: 0
-  updateEveryFrame: 0
+  updateEveryFrame: 1
 --- !u!114 &344667810
 MonoBehaviour:
   m_ObjectHideFlags: 0
