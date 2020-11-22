@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placedObject: {fileID: 0}
-  MinScale: 0.75
+  MinScale: 0.1
   MaxScale: 1.75
 --- !u!114 &114170428801866882
 MonoBehaviour:

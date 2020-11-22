@@ -35,13 +35,23 @@ namespace AR.ARCore
 
         [Header("Prefabs to Instantiate")]
         public GameObject placedPrefab;
+        private GameObject m_PlacedPrefabCopyHolder;
         public GameObject manipulatorPrefab;
-
+        private bool placed = false;
         public List<GameObject> placedObjects;
+
+        public Animator praticalTestUiAnimator;
 
         private void Awake()
         {
             firstPersonCamera = Camera.main;
+            m_PlacedPrefabCopyHolder = placedObject;
+        }
+
+        public void RefreshCoffeePlacement()
+        {
+            DeletePlacedObjects();
+            placedPrefab = m_PlacedPrefabCopyHolder;
         }
 
         protected override bool CanStartManipulationForGesture(TapGesture gesture)
@@ -87,18 +97,23 @@ namespace AR.ARCore
                 }
                 else
                 {
+                    if (placed)
+                        return;
+                    placed = true;
                     // Instantiate game object at the hit pose.
-                    var prefab = Instantiate(placedPrefab, hit.Pose.position, hit.Pose.rotation);
-
+                    //var prefab = Instantiate(placedPrefab, hit.Pose.position, hit.Pose.rotation);
+                    placedPrefab.SetActive(true);
+                    placedPrefab.transform.position = hit.Pose.position;
+                    //placedPrefab.transform.position = hit.Pose.rotation;
                     // Add object animator
-                    prefab.AddComponent<Animator>();
-                    prefab.GetComponent<Animator>().runtimeAnimatorController = runtimeAnimatorController;
+                    placedPrefab.AddComponent<Animator>();
+                    placedPrefab.GetComponent<Animator>().runtimeAnimatorController = runtimeAnimatorController;
 
                     // Instantiate manipulator.
                     var manipulator = Instantiate(manipulatorPrefab, hit.Pose.position, hit.Pose.rotation);
 
                     // Make game object a child of the manipulator.
-                    prefab.transform.parent = manipulator.transform;
+                    placedPrefab.transform.parent = manipulator.transform;
 
                     // Create an anchor to allow ARCore to track the hitpoint as understanding of
                     // the physical world evolves.
@@ -114,9 +129,13 @@ namespace AR.ARCore
                     manipulator.GetComponent<Manipulator>().Select();
 
                     // Set manipulator attached object
-                    manipulator.GetComponent<Manipulator>().placedObject = prefab;
+                    manipulator.GetComponent<Manipulator>().placedObject = placedPrefab;
 
                     placedObjects.Add(manipulator);
+
+                    placedPrefab = null;
+                    praticalTestUiAnimator.SetTrigger("step1_close");
+                    praticalTestUiAnimator.SetTrigger("step2_open");
                 }
             }
         }
