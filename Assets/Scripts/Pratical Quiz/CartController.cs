@@ -56,12 +56,13 @@ public class Beer
 
 public class CartController : MonoBehaviour
 {
-    public GameObject prefab;
-    public Transform content;
     public TextMeshProUGUI tabText;
     public TextMeshProUGUI totalPriceText;
     public TextMeshProUGUI totalPriceDiscountedText;
     public List<Beer> cart;
+
+    public ScriptController scriptController;
+    public GameObject failedUI;
 
     private void Start()
     {
@@ -90,6 +91,8 @@ public class CartController : MonoBehaviour
         }
 
         tabText.text = "CART(" + count.ToString() + ") " + price.ToString() + "€";
+        totalPriceText.text = price.ToString() + "€";
+        totalPriceDiscountedText.text = price.ToString() + "€";
     }
     public void AddBeer(int index)
     {
@@ -107,4 +110,63 @@ public class CartController : MonoBehaviour
 
         UpdateTabText();
     }
+
+    public void VerifyCart()
+    {
+        for (int i = 0; i < cart.Count; i++)
+        {
+            switch (i)
+            {
+                case 0:
+                    if (cart[i].quantity != 0)
+                    {
+                        ShowFailedUI();
+                        return;
+                    }
+                    break;
+                case 1:
+                    if (cart[i].quantity != 0)
+                    {
+                        ShowFailedUI();
+                        return;
+                    }
+                    break;
+                case 2:
+                    if (cart[i].quantity != 5)
+                    {
+                        ShowFailedUI();
+                        return;
+                    }
+                    break;
+                case 3:
+                    if (cart[i].quantity != 0)
+                    {
+                        ShowFailedUI();
+                        return;
+                    }
+                    break;
+                case 4:
+                    if(cart[i].quantity != 5)
+                    {
+                        ShowFailedUI();
+                        return;
+                    }
+                    break;
+                case 5:
+                    if (cart[i].quantity != 0)
+                    {
+                        ShowFailedUI();
+                        return;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        transform.parent.gameObject.SetActive(false);
+        scriptController.NextStep_Button();
+    }
+
+    public void ShowFailedUI() => failedUI.SetActive(true);
 }

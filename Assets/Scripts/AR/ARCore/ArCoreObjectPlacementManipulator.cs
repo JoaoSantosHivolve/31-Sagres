@@ -100,11 +100,13 @@ namespace AR.ARCore
                     if (placed)
                         return;
                     placed = true;
+
                     // Instantiate game object at the hit pose.
                     //var prefab = Instantiate(placedPrefab, hit.Pose.position, hit.Pose.rotation);
                     placedPrefab.SetActive(true);
                     placedPrefab.transform.position = hit.Pose.position;
-                    //placedPrefab.transform.position = hit.Pose.rotation;
+                    placedPrefab.transform.rotation = hit.Pose.rotation;
+
                     // Add object animator
                     placedPrefab.AddComponent<Animator>();
                     placedPrefab.GetComponent<Animator>().runtimeAnimatorController = runtimeAnimatorController;
@@ -134,8 +136,9 @@ namespace AR.ARCore
                     placedObjects.Add(manipulator);
 
                     placedPrefab = null;
+
                     praticalTestUiAnimator.SetTrigger("step1_close");
-                    praticalTestUiAnimator.SetTrigger("step2_open");
+                    praticalTestUiAnimator.SetTrigger("quiz_ready_open");
                 }
             }
         }

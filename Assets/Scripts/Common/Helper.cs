@@ -21,7 +21,8 @@
     public enum Character
     {
         Man,
-        Woman
+        Woman,
+        None
     }
 
     public static class Helper

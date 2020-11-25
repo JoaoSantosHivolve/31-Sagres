@@ -14,9 +14,9 @@ public class DamageObjectBehaviour : MonoBehaviour
     public Material goodMaterial;
     public List<Material> damagedMaterials;
 
-    public List<MeshRenderer> objects;
+    [SerializeField] private List<MeshRenderer> objects;
 
-    private void Start()
+    private void Awake()
     {
         if(Random.Range(0, 100) <= damageChance)
         {

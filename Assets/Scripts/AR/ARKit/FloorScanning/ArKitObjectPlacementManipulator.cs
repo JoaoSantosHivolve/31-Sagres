@@ -26,6 +26,10 @@ namespace AR.ARKit.FloorScanning
         private float m_Time;
         private bool m_UsedTwoFingers;
 
+        private bool placed = false;
+        public Animator praticalTestUiAnimator;
+
+
         private void Update()
         {
             if (Input.touchCount == 0)
@@ -51,31 +55,45 @@ namespace AR.ARKit.FloorScanning
 
                 if (placedPrefab != null)
                 {
+                    if (placed)
+                        return;
+                    placed = true;
+
+
                     // Instantiate prefab
-                    var prefab = Instantiate(placedPrefab, hitPose.position, hitPose.rotation);
-                    prefab.AddComponent<ArKitObject>();
+                    //var prefab = Instantiate(placedPrefab, hitPose.position, hitPose.rotation);
+
+                    placedPrefab.SetActive(true);
+                    placedPrefab.transform.position = hitPose.position;
+                    placedPrefab.transform.rotation = hitPose.rotation;
+                    placedPrefab.AddComponent<ArKitObject>();
 
                     // Instantiate object manipulators ( rotate, position, scale, ... )
                     var manipulatorsManager = Instantiate(objectManipulatorsPrefab);
-                    manipulatorsManager.ArKitObject = prefab.GetComponent<ArKitObject>();
+                    manipulatorsManager.ArKitObject = placedPrefab.GetComponent<ArKitObject>();
                     manipulatorsManager.rayCastManager = raycastManager;
                     manipulatorsManager.mainCamera = mainCamera;
 
                     // Instantiate object selected visual queue ( circle under object )
-                    var selectionVisualization = Instantiate(selectionVisualizationPrefab, prefab.transform, true);
+                    var selectionVisualization = Instantiate(selectionVisualizationPrefab, placedPrefab.transform, true);
                     selectionVisualization.transform.localPosition = Vector3.zero;
-                    selectionVisualization.transform.localScale = prefab.transform.localScale;
+                    selectionVisualization.transform.localScale = placedPrefab.transform.localScale;
                     selectionVisualization.transform.localRotation = Quaternion.Euler(0,0,0);
 
                     // Init prefabs components
-                    prefab.transform.parent = manipulatorsManager.transform;
-                    prefab.GetComponent<ArKitObject>().Init(manipulatorsManager, selectionVisualization, runtimeAnimatorController);
+                    placedPrefab.transform.parent = manipulatorsManager.transform;
+                    placedPrefab.GetComponent<ArKitObject>().Init(manipulatorsManager, selectionVisualization, runtimeAnimatorController);
 
                     // Set object selected
-                    manipulationSystem.Select(prefab.GetComponent<ArKitObject>());
+                    manipulationSystem.Select(placedPrefab.GetComponent<ArKitObject>());
 
                     // Add to list
                     placedObjects.Add(manipulatorsManager);
+
+                    placedPrefab = null;
+
+                    praticalTestUiAnimator.SetTrigger("step1_close");
+                    praticalTestUiAnimator.SetTrigger("quiz_ready_open");
 
                     // Instantiated object order
                     // - Manipulators

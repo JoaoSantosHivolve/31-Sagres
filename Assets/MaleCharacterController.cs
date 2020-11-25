@@ -6,7 +6,7 @@ public class MaleCharacterController : MonoBehaviour
     public Animator coffeeAnimator;
     private Animator m_Animator;
 
-    private void Awake()
+    public void StartMovement()
     {
         m_Animator = GetComponent<Animator>();
 
@@ -16,8 +16,8 @@ public class MaleCharacterController : MonoBehaviour
     private IEnumerator FirstStep()
     {
         yield return new WaitForSeconds(2);
-        coffeeAnimator.SetTrigger("t_doors_open");
-        coffeeAnimator.SetTrigger("roof_exit");
+        //coffeeAnimator.SetTrigger("t_doors_open");
+        //coffeeAnimator.SetTrigger("roof_exit");
         m_Animator.SetBool("man_walking", true);
 
         yield return new WaitForSeconds(5);
