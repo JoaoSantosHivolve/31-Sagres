@@ -119,7 +119,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.1
+  bundleVersion: 0.3
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -165,8 +165,9 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.hivolve.samples
     Standalone: com.unity.arfoundation.samples
-    iPhone: com.hivolve.samples
-  buildNumber: {}
+    iPhone: com.hivolve.css
+  buildNumber:
+    iPhone: 3
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 24
   AndroidTargetSdkVersion: 0
@@ -476,7 +477,8 @@ PlayerSettings:
       m_Height: 20
       m_Kind: 2
       m_SubKind: iPad
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: f632ba121d32da54b8d606960d32bf0b, type: 3}
       m_Width: 1024
       m_Height: 1024
       m_Kind: 4

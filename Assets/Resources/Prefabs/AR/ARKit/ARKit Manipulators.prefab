@@ -114,6 +114,6 @@ MonoBehaviour:
   maxSize: 3
   minSize: 0.75
   m_Scale: {x: 0, y: 0, z: 0}
-  triggerDistance: 17.5
+  triggerDistance: 20
   isScaling: 0
   lastDistance: 0
